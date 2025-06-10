@@ -2,6 +2,7 @@ from stats import get_words_amount
 from stats import get_characters_occurrences
 from stats import get_sorted_occurrences
 import sys
+import os
 
 def get_books_text(filepath):
     with open(filepath) as f:
@@ -19,12 +20,14 @@ def print_report(filepath, content, sorted_occurrences):
 
 
 
-
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or len(sys.argv) > 2:
         print("Usage: python3 main.py <path_to_book>")
         sys.exit(1)
     filepath = sys.argv[1]
+    if not os.path.exists(filepath):
+        print("Sorry, the file you choose either doesn't exist or is innaccessible to this program")
+        sys.exit(2)
     content = get_books_text(filepath)
     occurrences = get_characters_occurrences(content)
     sorted_occurrences = get_sorted_occurrences(occurrences)
